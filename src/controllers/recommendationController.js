@@ -8,7 +8,7 @@ async function postRecommendation(req, res) {
 
     try {
         if (validadeRecommendation(req.body)) {
-            return res.status(400).send(validadeRecommendation(req.body).message);
+            return res.status(400).send(validadeRecommendation(req.body));
         }
 
         res.sendStatus(201);
