@@ -58,7 +58,6 @@ async function listRecommendations({ amount, rating, id }) {
 
 export {
     createRecommendation,
-    getRecommendation,
     updateScore,
     removeRecommendation,
     listRecommendations,
