@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { validadeRecommendation } from '../schemas/recommendationSchema.js';
 import * as recommendationService from '../services/recommendationService.js';
 
@@ -21,7 +22,18 @@ async function postRecommendation(req, res) {
 
         res.status(201).send(recommendation);
     } catch (error) {
-        // eslint-disable-next-line no-console
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
+
+async function upvoteRecommendation(req, res) {
+    const { id } = req.params;
+    try {
+        const updatedScore = await recommendationService.upvoteRecommendation({ id });
+
+        res.status(200).send(updatedScore);
+    } catch (error) {
         console.log(error);
         res.sendStatus(500);
     }
@@ -29,4 +41,5 @@ async function postRecommendation(req, res) {
 
 export {
     postRecommendation,
+    upvoteRecommendation,
 };
