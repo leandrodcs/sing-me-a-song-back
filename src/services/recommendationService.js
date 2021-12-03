@@ -20,7 +20,7 @@ async function downvoteRecommendation({ id }) {
     if (result.score < -4) {
         const recommendationRemoved = await recommendationRepository.removeRecommendation({ id });
 
-        return `A recomendação ${recommendationRemoved.name} foi removida pois chegou a uma pontuação muito baixa.`;
+        return `A recomendação "${recommendationRemoved.name}" foi removida pois chegou a uma pontuação muito baixa.`;
     }
 
     const newScore = result.score - 1;
