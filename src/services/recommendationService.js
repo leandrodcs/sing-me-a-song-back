@@ -7,7 +7,8 @@ async function postRecommendation({ name, youtubeLink }) {
 }
 
 async function voteRecommendation({ id, vote }) {
-    const result = await recommendationRepository.getRecommendation({ id });
+    const results = await recommendationRepository.listRecommendations({ id });
+    const result = results[0];
 
     if (!result) {
         throw new RecommendationError(`A recomendação de id ${id} não existe.`);
