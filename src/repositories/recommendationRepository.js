@@ -44,18 +44,23 @@ async function removeRecommendation({ id }) {
     return result.rows[0];
 }
 
-async function listTopRecommendations({ amount }) {
-    const result = await connection.query(`
-        SELECT
-            id, name, youtube_link as "youtubeLink", score
-        FROM
-            recommendations
-        ORDER BY
-            score DESC
-        LIMIT
-            $1
-    ;`, [amount]);
+async function listRecommendations({ amount, rating }) {
+    let query = 'SELECT id, name, youtube_link as "youtubeLink", score FROM recommendations';
+    const queryArr = [];
+    if (amount) {
+        query += ' ORDER BY score DESC LIMIT $1;';
+        queryArr.push(amount);
+    }
 
+    if (rating === 'good') {
+        query += ' WHERE score > 10;';
+    }
+
+    if (rating === 'bad') {
+        query += ' WHERE score <= 10;';
+    }
+
+    const result = await connection.query(query, queryArr);
     return result.rows;
 }
 
@@ -64,5 +69,5 @@ export {
     getRecommendation,
     updateScore,
     removeRecommendation,
-    listTopRecommendations,
+    listRecommendations,
 };

@@ -40,13 +40,27 @@ async function getTopRecommendations({ amount }) {
         throw new AmountError('O valor informado deve ser um número inteiro maior que 0');
     }
 
-    const topRecommendations = await recommendationRepository.listTopRecommendations({ amount });
+    const topRecommendations = await recommendationRepository.listRecommendations({ amount });
 
     return topRecommendations;
+}
+
+async function getrandomRecommendation() {
+    const getHighRatedSong = Math.random() >= 0.3;
+    let rating = 'bad';
+
+    if (getHighRatedSong) {
+        rating = 'good';
+    }
+
+    const recommendations = await recommendationRepository.listRecommendations({ rating });
+    const recommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
+    return recommendation;
 }
 
 export {
     postRecommendation,
     voteRecommendation,
     getTopRecommendations,
+    getrandomRecommendation,
 };
