@@ -1,7 +1,8 @@
 import { validadeRecommendation } from '../schemas/recommendationSchema.js';
 import * as recommendationService from '../services/recommendationService.js';
+import RecommendationError from '../errors/recommendationError.js';
 
-async function postRecommendation(req, res) {
+async function postRecommendation(req, res, next) {
     const {
         name,
         youtubeLink,
@@ -21,12 +22,42 @@ async function postRecommendation(req, res) {
 
         res.status(201).send(recommendation);
     } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-        res.sendStatus(500);
+        next(error);
+    }
+}
+
+async function upvoteRecommendation(req, res, next) {
+    const { id } = req.params;
+
+    try {
+        const updatedScore = await recommendationService.voteRecommendation({ id, vote: 'up' });
+
+        res.status(200).send(updatedScore);
+    } catch (error) {
+        if (error instanceof RecommendationError) {
+            return res.status(404).send(error.message);
+        }
+        next(error);
+    }
+}
+
+async function downvoteRecommendation(req, res, next) {
+    const { id } = req.params;
+
+    try {
+        const updatedScore = await recommendationService.voteRecommendation({ id, vote: 'down' });
+
+        res.status(200).send(updatedScore);
+    } catch (error) {
+        if (error instanceof RecommendationError) {
+            return res.status(404).send(error.message);
+        }
+        next(error);
     }
 }
 
 export {
     postRecommendation,
+    upvoteRecommendation,
+    downvoteRecommendation,
 };
