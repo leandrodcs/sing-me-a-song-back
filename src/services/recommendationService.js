@@ -12,11 +12,13 @@ async function voteRecommendation({ id, vote }) {
         throw new RecommendationError(`A recomendação de id ${id} não existe.`);
     }
 
+    const { name, score } = result;
+
     if (vote === 'up') {
         const newScore = result.score + 1;
-        const updatedScore = await recommendationRepository.updateScore({ id, newScore });
+        await recommendationRepository.updateScore({ id, newScore });
 
-        return updatedScore;
+        return `A pontuação da musica "${name}" mudou de ${score} para ${newScore}`;
     }
 
     if (result.score < -4) {
@@ -26,9 +28,9 @@ async function voteRecommendation({ id, vote }) {
     }
 
     const newScore = result.score - 1;
-    const updatedScore = await recommendationRepository.updateScore({ id, newScore });
+    await recommendationRepository.updateScore({ id, newScore });
 
-    return updatedScore;
+    return `A pontuação da musica "${name}" mudou de ${score} para ${newScore}`;
 }
 
 export {

@@ -28,18 +28,14 @@ async function getRecommendation({ id }) {
 }
 
 async function updateScore({ id, newScore }) {
-    const result = await connection.query(`
+    await connection.query(`
     UPDATE
         recommendations
     SET
         score = $1
     WHERE
         id = $2
-    RETURNING
-        *
     ;`, [newScore, id]);
-
-    return result.rows[0];
 }
 
 async function removeRecommendation({ id }) {
