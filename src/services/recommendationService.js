@@ -1,21 +1,23 @@
 import * as recommendationRepository from '../repositories/recommendationRepository.js';
+import RecommendationError from '../errors/recommendationError.js';
 
 async function postRecommendation({ name, youtubeLink }) {
     return recommendationRepository.createRecommendation({ name, youtubeLink });
 }
 
-async function upvoteRecommendation({ id }) {
+async function voteRecommendation({ id, vote }) {
     const result = await recommendationRepository.getRecommendation({ id });
 
-    const newScore = result.score + 1;
+    if (!result) {
+        throw new RecommendationError(`A recomendação de id ${id} não existe.`);
+    }
 
-    const updatedScore = await recommendationRepository.updateScore({ id, newScore });
+    if (vote === 'up') {
+        const newScore = result.score + 1;
+        const updatedScore = await recommendationRepository.updateScore({ id, newScore });
 
-    return updatedScore;
-}
-
-async function downvoteRecommendation({ id }) {
-    const result = await recommendationRepository.getRecommendation({ id });
+        return updatedScore;
+    }
 
     if (result.score < -4) {
         const recommendationRemoved = await recommendationRepository.removeRecommendation({ id });
@@ -24,7 +26,6 @@ async function downvoteRecommendation({ id }) {
     }
 
     const newScore = result.score - 1;
-
     const updatedScore = await recommendationRepository.updateScore({ id, newScore });
 
     return updatedScore;
@@ -32,6 +33,5 @@ async function downvoteRecommendation({ id }) {
 
 export {
     postRecommendation,
-    upvoteRecommendation,
-    downvoteRecommendation,
+    voteRecommendation,
 };

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { validadeRecommendation } from '../schemas/recommendationSchema.js';
 import * as recommendationService from '../services/recommendationService.js';
+import RecommendationError from '../errors/recommendationError.js';
 
 async function postRecommendation(req, res) {
     const {
@@ -29,24 +30,32 @@ async function postRecommendation(req, res) {
 
 async function upvoteRecommendation(req, res) {
     const { id } = req.params;
+
     try {
-        const updatedScore = await recommendationService.upvoteRecommendation({ id });
+        const updatedScore = await recommendationService.voteRecommendation({ id, vote: 'up' });
 
         res.status(200).send(updatedScore);
     } catch (error) {
         console.log(error);
+        if (error instanceof RecommendationError) {
+            return res.status(404).send(error.message);
+        }
         res.sendStatus(500);
     }
 }
 
 async function downvoteRecommendation(req, res) {
     const { id } = req.params;
+
     try {
-        const updatedScore = await recommendationService.downvoteRecommendation({ id });
+        const updatedScore = await recommendationService.voteRecommendation({ id, vote: 'down' });
 
         res.status(200).send(updatedScore);
     } catch (error) {
         console.log(error);
+        if (error instanceof RecommendationError) {
+            return res.status(404).send(error.message);
+        }
         res.sendStatus(500);
     }
 }
