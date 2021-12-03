@@ -71,9 +71,20 @@ async function getTopRecommendations(req, res, next) {
     }
 }
 
+async function getrandomRecommendation(req, res, next) {
+    try {
+        const recommendation = await recommendationService.getrandomRecommendation();
+
+        res.status(200).send(recommendation);
+    } catch (error) {
+        next(error);
+    }
+}
+
 export {
     postRecommendation,
     upvoteRecommendation,
     downvoteRecommendation,
     getTopRecommendations,
+    getrandomRecommendation,
 };
