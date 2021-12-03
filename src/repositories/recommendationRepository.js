@@ -47,7 +47,7 @@ async function removeRecommendation({ id }) {
 async function listTopRecommendations({ amount }) {
     const result = await connection.query(`
         SELECT
-            *
+            id, name, youtube_link as "youtubeLink", score
         FROM
             recommendations
         ORDER BY
