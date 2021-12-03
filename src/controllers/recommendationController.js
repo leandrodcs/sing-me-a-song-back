@@ -1,6 +1,7 @@
 import { validadeRecommendation } from '../schemas/recommendationSchema.js';
 import * as recommendationService from '../services/recommendationService.js';
 import RecommendationError from '../errors/recommendationError.js';
+import AmountError from '../errors/amountError.js';
 
 async function postRecommendation(req, res, next) {
     const {
@@ -56,8 +57,23 @@ async function downvoteRecommendation(req, res, next) {
     }
 }
 
+async function getTopRecommendations(req, res, next) {
+    const { amount } = req.params;
+    try {
+        const topRecommendations = await recommendationService.getTopRecommendations({ amount });
+
+        res.status(200).send(topRecommendations);
+    } catch (error) {
+        if (error instanceof AmountError) {
+            return res.status(400).send(error.message);
+        }
+        next(error);
+    }
+}
+
 export {
     postRecommendation,
     upvoteRecommendation,
     downvoteRecommendation,
+    getTopRecommendations,
 };

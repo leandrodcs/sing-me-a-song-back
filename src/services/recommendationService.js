@@ -1,5 +1,6 @@
 import * as recommendationRepository from '../repositories/recommendationRepository.js';
 import RecommendationError from '../errors/recommendationError.js';
+import AmountError from '../errors/amountError.js';
 
 async function postRecommendation({ name, youtubeLink }) {
     return recommendationRepository.createRecommendation({ name, youtubeLink });
@@ -33,7 +34,19 @@ async function voteRecommendation({ id, vote }) {
     return `A pontuação da musica "${name}" mudou de ${score} para ${newScore}`;
 }
 
+async function getTopRecommendations({ amount }) {
+    const quantity = Number(amount);
+    if (!quantity || quantity < 0 || !Number.isInteger(quantity)) {
+        throw new AmountError('O valor informado deve ser um número inteiro maior que 0');
+    }
+
+    const topRecommendations = await recommendationRepository.listTopRecommendations({ amount });
+
+    return topRecommendations;
+}
+
 export {
     postRecommendation,
     voteRecommendation,
+    getTopRecommendations,
 };
