@@ -9,6 +9,7 @@ app.use(cors());
 
 app.post('/recommendations', recommendationController.postRecommendation);
 app.post('/recommendations/:id/upvote', recommendationController.upvoteRecommendation);
+app.post('/recommendations/:id/downvote', recommendationController.downvoteRecommendation);
 
 app.get('/health', (req, res) => {
     res.status(200).send('Server is up.');

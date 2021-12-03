@@ -39,7 +39,20 @@ async function upvoteRecommendation(req, res) {
     }
 }
 
+async function downvoteRecommendation(req, res) {
+    const { id } = req.params;
+    try {
+        const updatedScore = await recommendationService.downvoteRecommendation({ id });
+
+        res.status(200).send(updatedScore);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
+
 export {
     postRecommendation,
     upvoteRecommendation,
+    downvoteRecommendation,
 };

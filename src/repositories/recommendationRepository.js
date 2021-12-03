@@ -38,7 +38,12 @@ async function updateScore({ id, newScore }) {
     RETURNING
         *
     ;`, [newScore, id]);
-    console.log(result.rows);
+
+    return result.rows[0];
+}
+
+async function removeRecommendation({ id }) {
+    const result = await connection.query('DELETE FROM recommendations WHERE id = $1 RETURNING *;', [id]);
 
     return result.rows[0];
 }
@@ -47,4 +52,5 @@ export {
     createRecommendation,
     getRecommendation,
     updateScore,
+    removeRecommendation,
 };
