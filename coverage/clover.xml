@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1638734471783" clover="3.2.0">
-  <project timestamp="1638734471783" name="All files">
-    <metrics statements="56" coveredstatements="29" conditionals="23" coveredconditionals="12" methods="10" coveredmethods="5" elements="89" coveredelements="46" complexity="0" loc="56" ncloc="56" packages="4" files="5" classes="5"/>
+<coverage generated="1638736833979" clover="3.2.0">
+  <project timestamp="1638736833980" name="All files">
+    <metrics statements="64" coveredstatements="44" conditionals="29" coveredconditionals="20" methods="11" coveredmethods="7" elements="104" coveredelements="71" complexity="0" loc="64" ncloc="64" packages="4" files="6" classes="6"/>
     <package name="database">
       <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="0" coveredmethods="0"/>
       <file name="database.js" path="/media/leandrodcs/D2989951989934C7/Bootcamp/03 - Projetos/Projeto_17_sing-me-a-song/sing-me-a-song-back/src/database/database.js">
@@ -14,8 +14,13 @@
       </file>
     </package>
     <package name="errors">
-      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="amountError.js" path="/media/leandrodcs/D2989951989934C7/Bootcamp/03 - Projetos/Projeto_17_sing-me-a-song/sing-me-a-song-back/src/errors/amountError.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+      </file>
+      <file name="emptyError.js" path="/media/leandrodcs/D2989951989934C7/Bootcamp/03 - Projetos/Projeto_17_sing-me-a-song/sing-me-a-song-back/src/errors/emptyError.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
@@ -52,37 +57,43 @@
       </file>
     </package>
     <package name="services">
-      <metrics statements="28" coveredstatements="21" conditionals="13" coveredconditionals="11" methods="4" coveredmethods="3"/>
+      <metrics statements="34" coveredstatements="34" conditionals="19" coveredconditionals="19" methods="4" coveredmethods="4"/>
       <file name="recommendationService.js" path="/media/leandrodcs/D2989951989934C7/Bootcamp/03 - Projetos/Projeto_17_sing-me-a-song/sing-me-a-song-back/src/services/recommendationService.js">
-        <metrics statements="28" coveredstatements="21" conditionals="13" coveredconditionals="11" methods="4" coveredmethods="3"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
+        <metrics statements="34" coveredstatements="34" conditionals="19" coveredconditionals="19" methods="4" coveredmethods="4"/>
+        <line num="7" count="1" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
-        <line num="13" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="17" count="3" type="stmt"/>
-        <line num="19" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="20" count="1" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="14" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="20" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="21" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="26" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="27" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="39" count="3" type="stmt"/>
-        <line num="40" count="3" type="cond" truecount="5" falsecount="0"/>
-        <line num="41" count="2" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="40" count="4" type="stmt"/>
+        <line num="41" count="4" type="cond" truecount="5" falsecount="0"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="47" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="56" count="3" type="stmt"/>
+        <line num="58" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+        <line num="64" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="68" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="71" count="2" type="stmt"/>
+        <line num="72" count="2" type="stmt"/>
       </file>
     </package>
   </project>

@@ -3,6 +3,7 @@ import * as recommendationService from '../../src/services/recommendationService
 import * as recommendationRepository from '../../src/repositories/recommendationRepository.js';
 import RecommendationError from '../../src/errors/recommendationError.js';
 import AmountError from '../../src/errors/amountError.js';
+import EmptyError from '../../src/errors/emptyError.js';
 
 const sut = recommendationService;
 
@@ -67,10 +68,43 @@ describe('Recommendations', () => {
         await expect(promise).rejects.toThrowError(AmountError);
     });
 
+    it('Expects EmptyError for no recommendations found', async () => {
+        // jest.spyOn(global.Number).mockImplementationOnce(() => null);
+        jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => []);
+        const promise = sut.getTopRecommendations({ amount: 1 });
+        await expect(promise).rejects.toThrowError(EmptyError);
+    });
+
     it('Expects to receive a top recommendation', async () => {
         // jest.spyOn(global.Number).mockImplementationOnce(() => null);
-        jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => ({ name: 'test', youtubeLink: 'link' }));
+        jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => [{ name: 'test', youtubeLink: 'link' }]);
         const result = await sut.getTopRecommendations({ amount: 1 });
+        expect(result).toEqual([{ name: 'test', youtubeLink: 'link' }]);
+    });
+
+    it('Expects EmptyError for no recommendations found', async () => {
+        jest.spyOn(global.Math, 'random').mockImplementationOnce(() => 0);
+        jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => []);
+        jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => []);
+        const promise = sut.getrandomRecommendation({ amount: 1 });
+        await expect(promise).rejects.toThrowError(EmptyError);
+    });
+
+    it('Expects to receive a random bad recommendation', async () => {
+        jest.spyOn(global.Math, 'random').mockImplementationOnce(() => 0);
+        jest.spyOn(global.Math, 'random').mockImplementationOnce(() => 0);
+        jest.spyOn(global.Math, 'floor').mockImplementationOnce(() => 0);
+        jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => [{ name: 'test', youtubeLink: 'link' }]);
+        const result = await sut.getrandomRecommendation();
+        expect(result).toEqual({ name: 'test', youtubeLink: 'link' });
+    });
+
+    it('Expects to receive a random good recommendation', async () => {
+        jest.spyOn(global.Math, 'random').mockImplementationOnce(() => 1);
+        jest.spyOn(global.Math, 'random').mockImplementationOnce(() => 0);
+        jest.spyOn(global.Math, 'floor').mockImplementationOnce(() => 0);
+        jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => [{ name: 'test', youtubeLink: 'link' }]);
+        const result = await sut.getrandomRecommendation();
         expect(result).toEqual({ name: 'test', youtubeLink: 'link' });
     });
 });
