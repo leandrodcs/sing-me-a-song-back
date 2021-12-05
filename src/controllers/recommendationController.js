@@ -68,6 +68,9 @@ async function getTopRecommendations(req, res, next) {
         if (error instanceof AmountError) {
             return res.status(400).send(error.message);
         }
+        if (error instanceof EmptyError) {
+            return res.status(404).send(error.message);
+        }
         next(error);
     }
 }

@@ -44,6 +44,10 @@ async function getTopRecommendations({ amount }) {
 
     const topRecommendations = await recommendationRepository.listRecommendations({ amount });
 
+    if (!topRecommendations.length) {
+        throw new EmptyError('Nenhuma recomendação encontrada :(');
+    }
+
     return topRecommendations;
 }
 
