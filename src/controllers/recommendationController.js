@@ -2,6 +2,7 @@ import { validadeRecommendation } from '../schemas/recommendationSchema.js';
 import * as recommendationService from '../services/recommendationService.js';
 import RecommendationError from '../errors/recommendationError.js';
 import AmountError from '../errors/amountError.js';
+import EmptyError from '../errors/emptyError.js';
 
 async function postRecommendation(req, res, next) {
     const {
@@ -67,6 +68,9 @@ async function getTopRecommendations(req, res, next) {
         if (error instanceof AmountError) {
             return res.status(400).send(error.message);
         }
+        if (error instanceof EmptyError) {
+            return res.status(404).send(error.message);
+        }
         next(error);
     }
 }
@@ -77,6 +81,9 @@ async function getrandomRecommendation(req, res, next) {
 
         res.status(200).send(recommendation);
     } catch (error) {
+        if (error instanceof EmptyError) {
+            return res.status(404).send(error.message);
+        }
         next(error);
     }
 }
