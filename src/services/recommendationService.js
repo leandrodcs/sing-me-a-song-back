@@ -37,7 +37,7 @@ async function voteRecommendation({ id, vote }) {
 
 async function getTopRecommendations({ amount }) {
     const quantity = Number(amount);
-    if (!quantity || quantity < 0 || !Number.isInteger(quantity)) {
+    if (!quantity || quantity <= 0 || !Number.isInteger(quantity)) {
         throw new AmountError('O valor informado deve ser um número inteiro maior que 0');
     }
 

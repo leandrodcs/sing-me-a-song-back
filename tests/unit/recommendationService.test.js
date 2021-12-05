@@ -2,11 +2,12 @@
 import * as recommendationService from '../../src/services/recommendationService.js';
 import * as recommendationRepository from '../../src/repositories/recommendationRepository.js';
 import RecommendationError from '../../src/errors/recommendationError.js';
+import AmountError from '../../src/errors/amountError.js';
 
 const sut = recommendationService;
 
 describe('Recommendations', () => {
-    it('Expect to return the posted song data', async () => {
+    it('Expects to return the posted song data', async () => {
         const body = {
             id: '1',
             name: 'Test',
@@ -18,13 +19,13 @@ describe('Recommendations', () => {
         expect(result).toEqual(body);
     });
 
-    it('Expect RecommendationError for invalid recommendation id', async () => {
+    it('Expects RecommendationError for invalid recommendation id', async () => {
         jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => [null]);
         const promise = sut.voteRecommendation({ id: '1' });
         await expect(promise).rejects.toThrowError(RecommendationError);
     });
 
-    it('Expect successful upvote message', async () => {
+    it('Expects successful upvote message', async () => {
         jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => [{
             name: 'test',
             score: 0,
@@ -34,7 +35,7 @@ describe('Recommendations', () => {
         expect(result).toBe('A pontuação da musica "test" mudou de 0 para 1');
     });
 
-    it('Expect successful song removal message', async () => {
+    it('Expects successful song removal message', async () => {
         jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => [{
             name: 'test',
             score: -5,
@@ -44,7 +45,7 @@ describe('Recommendations', () => {
         expect(result).toBe('A recomendação "test" foi removida pois chegou a uma pontuação muito baixa.');
     });
 
-    it('Expect successful downvote message', async () => {
+    it('Expects successful downvote message', async () => {
         jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => [{
             name: 'test',
             score: -4,
@@ -52,5 +53,24 @@ describe('Recommendations', () => {
         jest.spyOn(recommendationRepository, 'updateScore').mockImplementationOnce(() => []);
         const result = await sut.voteRecommendation({ id: '1', vote: 'down' });
         expect(result).toBe('A pontuação da musica "test" mudou de -4 para -5');
+    });
+
+    it('Expects AmountError for invalid param', async () => {
+        // jest.spyOn(global.Number).mockImplementationOnce(() => null);
+        const promise = sut.getTopRecommendations({ amount: 0 });
+        await expect(promise).rejects.toThrowError(AmountError);
+    });
+
+    it('Expects AmountError for invalid param', async () => {
+        // jest.spyOn(global.Number).mockImplementationOnce(() => null);
+        const promise = sut.getTopRecommendations({ amount: 1.1 });
+        await expect(promise).rejects.toThrowError(AmountError);
+    });
+
+    it('Expects to receive a top recommendation', async () => {
+        // jest.spyOn(global.Number).mockImplementationOnce(() => null);
+        jest.spyOn(recommendationRepository, 'listRecommendations').mockImplementationOnce(() => ({ name: 'test', youtubeLink: 'link' }));
+        const result = await sut.getTopRecommendations({ amount: 1 });
+        expect(result).toEqual({ name: 'test', youtubeLink: 'link' });
     });
 });
