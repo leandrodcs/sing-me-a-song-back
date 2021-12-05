@@ -1,6 +1,7 @@
 import * as recommendationRepository from '../repositories/recommendationRepository.js';
 import RecommendationError from '../errors/recommendationError.js';
 import AmountError from '../errors/amountError.js';
+import EmptyError from '../errors/emptyError.js';
 
 async function postRecommendation({ name, youtubeLink }) {
     return recommendationRepository.createRecommendation({ name, youtubeLink });
@@ -54,7 +55,15 @@ async function getrandomRecommendation() {
         rating = 'good';
     }
 
-    const recommendations = await recommendationRepository.listRecommendations({ rating });
+    let recommendations = await recommendationRepository.listRecommendations({ rating });
+
+    if (!recommendations.length) {
+        recommendations = await recommendationRepository.listRecommendations({});
+    }
+
+    if (!recommendations.length) {
+        throw new EmptyError('Nenhuma recomendação encontrada :(');
+    }
     const recommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
     return recommendation;
 }
