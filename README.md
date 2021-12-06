@@ -1,6 +1,6 @@
 # API - Sing me a song
 
-This API was made for people to share songs with each other. If you're tired of listening to the same songs over and over again, this API may just be what you've been looking for.
+If you're tired of listening to the same songs over and over again, this API may just be what you've been looking for.
 
 ## Technologies
 
@@ -18,7 +18,7 @@ The following tools and frameworks were used in the construction of the project:
 
 ## About
 
-This API doesn't require any kind of identification, it's sole purpose is to share songs between people. Songs can be shared and looked for, if you are looking for a song, you can do it by rating or randomly, all songs can be up voted up or down as well.
+This API doesn't require any kind of identification, it's sole purpose is to share songs between people. Songs can be shared and looked for, if you are looking for a song, you can do it by rating or randomly, all songs can be voted up or down as well.
 
 ## Routes
 
