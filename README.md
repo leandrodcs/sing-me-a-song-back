@@ -49,7 +49,7 @@ For a successful `201` post, the response will be the song that you just posted 
 For an unsuccessful `400` post, the response will include one of the following messages describing what is wrong with the requirement body.
 
 ```json
-"Dados insuficientes.", "Insira um nome válido." or "Insira um link do youtube válido."
+"Dados insuficientes.", "Insira um nome válido.", "Insira um link do youtube válido."
 ```
 
 - ### `POST /recommendations/:id/upvote`
