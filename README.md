@@ -171,6 +171,8 @@ CREATE DATABASE singmeasong
 npm run dev
 ```
 
+(If you prefer, you can use the deploy here: https://api-sing-me-a-song.herokuapp.com/)
+
 ## Developer
 
 * [Leandro D. C. Schmidt ](https://github.com/leandrodcs)
